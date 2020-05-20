@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>
+            + Index +
+        </title>
+        <link rel="stylesheet" href="styles.css">
+        <script src="https://cdnjs.deepai.org/deepai.min.js"></script>
+        <script src="fetch.js"></script>
+    </head>
+    <body>
+        <div class="site-wrap"></div>
+        <div class="container">
+            <span id="first" class="init" style="visibility: hidden">Hello!!</span><br>
+            <span id="second" class="init" style="visibility: hidden">So glad to see you..............</span><br>
+            <span id="third" class="init"style="visibility: hidden">What is on your mind??</span>
+            <!--Cursor animation adapted from https://jsfiddle.net/dygxxb7n/-->
+            <div class="cursor" id="cursor"> 
+                <div class="form-group" id="form" style="display: none">
+                        <span class="form" id="inpt" contenteditable="true" style="cursor: none"></span>
+                        <div class="anim" id="animation"><i></i></div>
+                </div>
+            </div>
+            <span id="fourth" class="init" style="visibility: hidden">....Okay...Just a moment..........</span><br>
+            <span id="dots" class="return" style="visibility: hidden"></span>
+            <span id="result" class="return" style="visibility: hidden"></span>
+        </div>
+        <script>
+            var elmnt = document.getElementById("inpt")
+            var animt = document.getElementById("animation")
+            // Run this script every time they type in the input span
+            elmnt.addEventListener("keydown", function(e) {
+                animt.style.left = (elmnt.offsetWidth - 7) + 'px';
+                // if backspace
+                if (event.keyCode == 8) {
+                    animt.style.left = (elmnt.offsetWidth - 30) + 'px';
+                }
+                // If they press enter
+                if (e.keyCode === 13) {
+                    // Make form non-editable
+                    elmnt.setAttribute("contenteditable", false); 
+                    // End cursor animation
+                    animt.classList.remove("anim");
+                    // Prevent new line
+                    e.preventDefault();
+                    // Submit the contents
+                    fsubmit();  
+                }                
+            }, false);
+
+            // Call the draw functions in order
+            function open(){
+                iter0('#first', '1', function(){
+                    iter0('#second', '1.5', function(){
+                        iter0('#third', '0.5', function(){
+                            show('form');
+                        });
+                    });
+                });
+            }
+            open()
+        </script>
+    </body>
+</html>
